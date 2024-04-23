@@ -7,10 +7,16 @@ y = int(input("Enter the size of dimesion Y: "))
 
 table = Table(x,y)
 
-ixM = IndexMapping(x)
-
 robot = Position()
 esc = False
+
+def GetXY(p):
+    nums = p.replace("(","").replace(",","").replace(")","")
+    p = []
+    for num in nums:
+        if num.isnumeric():
+            p.append(int(num))
+    return p
 
 while (esc != True):
     print("What is your next Move?")
@@ -18,17 +24,17 @@ while (esc != True):
     choice = input("Enter a choice: ")
     if choice.lower()!="exit":
         if int(choice) == 1:
-            posX = int(input("Enter Position X: "))
-            posY = int(input("Enter Position Y: "))
+            pos = input("Enter Position (X,Y): ")
+            posX, posY = GetXY(pos)
+
             facing = input("Enter facing: ")
-            x = ixM.MapX(posX)
-            robot.Place(table, x, posY, facing)
+            robot.Place(table, posY, posX, facing)
         elif int(choice) == 2:
             robot.TurnLeft()
         elif int(choice) == 3:
             robot.TurnRight()
         elif int(choice) == 4:
-            robot.Report(ixM.indexMapDictX)
+            robot.Report()
         elif int(choice) == 5:
             robot.Move(table)
     else:

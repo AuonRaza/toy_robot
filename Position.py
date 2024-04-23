@@ -20,33 +20,33 @@ class Position:
 
     def Move(self,table):
         if self.f == 'n':
+            if self.x == len(table.maze[0]):
+                raise Exception(f"Can't move out of the table: (x->{self.y},y->{self.x},facing->{self.f})")
+            else:
+                table.maze[self.x][self.y] = 0
+                self.x = self.x + 1
+                table.maze[self.x][self.y] = 'R'
+        elif self.f == 's':
             if self.x == 0:
                 raise Exception(f"Can't move out of the table: (x->{self.x},y->{self.y},facing->{self.f})")
             else:
                 table.maze[self.x][self.y] = 0
                 self.x = self.x - 1
                 table.maze[self.x][self.y] = 'R'
-        elif self.f == 's':
-            if self.x == len(table.maze[0]):
-                raise Exception(f"Can't move out of the table: (x->{self.x},y->{self.y},facing->{self.f})")
-            else:
-                table.maze[self.x][self.y] = 0
-                self.x = self.x + 1
-                table.maze[self.x][self.y] = 'R'
         elif self.f == 'w':
             if self.y == 0:
-                raise Exception(f"Can't move out of the table: (x->{self.x},y->{self.y},facing->{self.f})")
+                raise Exception(f"Can't move out of the table: (x->{self.y},y->{self.x},facing->{self.f})")
             else:
                 table.maze[self.x][self.y] = 0
                 self.y = self.y - 1
                 table.maze[self.x][self.y] = 'R'
         elif self.f == 'e':
             if self.x == len(table.maze)-1:
-                raise Exception(f"Can't move out of the table: (x->{self.x},y->{self.y},facing->{self.f})")
+                raise Exception(f"Can't move out of the table: (x->{self.y},y->{self.x},facing->{self.f})")
             else:
                 table.maze[self.x][self.y] = 0
                 self.y = self.y + 1
                 table.maze[self.x][self.y] = 'R'
 
-    def Report(self,ixM):
-        print(f"Robot is at x = {ixM[self.x]}, y = {self.y}, facing {self.f.upper()}")
+    def Report(self):
+        print(f"Robot is at x = {self.y}, y = {self.x}, facing {self.f.upper()}")
